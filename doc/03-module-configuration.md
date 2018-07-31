@@ -77,6 +77,7 @@ ssl_verifyhost = "0"
 |defaultorgid           | **Required.** Number of the default organization id where dashboards are located. Defaults to `1`.
 |defaultdashboardstore  | **Optional.** Grafana backend (file or database). Defaults to `Database`.|
 |accessmode             | **Optional.** Controls whether graphs are fetched with curl (`proxy` & `indirectproxy`), are embedded (`direct`) or in iframe ('iframe'). Direct access & iframe needs `auth.anonymous` enabled in Grafana. Defaults to `proxy`.|
+|accessmodedirect       | **Optional.** Additional Direct Access mode for users which has direct access permissions to Grafana. Direct access & iframe needs `auth.anonymous` enabled in Grafana. |
 |timeout                | **Proxy only** **Optional.** Timeout in seconds for proxy mode to fetch images. Defaults to `5`.|
 |authentication         | **Proxy only** Authentication type used to acccess Grafana. Can be set to `anon`,`token` or `basic`. Defaults to `anon`.
 |username               | **Proxy with basic only** **Required** HTTP Basic Auth user name to access Grafana.|
@@ -177,6 +178,13 @@ Contra: Less secure then proxy mode. Needs `auth.anonymous` enabled in Grafana.
 In Iframe mode you have the full power of Grafana features like mouse over tooltip.
 Pro: All features from Grafana enabled. Fast page rendering.
 Contra: Less secure, page refresh from Icingaweb2 will be distracting! Needs `auth.anonymous` enabled in Grafana.
+
+### accessmodedirect
+Controls how the graphs are fetched/delivered for/to the users which have the permission `grafana/directaccess`.
+It allows to use `proxy` or `indirectproxy` for a special group of users which have direct access to grafana from their 
+webbrowsers. All other users without this permission will see the graphs configured via `accessmode`.
+Values can be either `proxy` or `indirectproxy` or not set to disable this feature.
+If activated, `iframe` or `direct` use the `host` and `protocol` form `publichost` and `publicprotocol`.
 
 ### ssl_verifypeer
 Only for `proxy` & `ìndirectproxy` modes. Verify the peer's SSL certificate. Defaults to `false`.

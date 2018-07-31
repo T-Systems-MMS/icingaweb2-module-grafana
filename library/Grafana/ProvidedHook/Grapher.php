@@ -41,6 +41,7 @@ class Grapher extends GrapherHook
     protected $defaultDashboardStore   = "db";
     protected $dataSource              = null;
     protected $accessMode              = "proxy";
+    protected $accessModeDirect      = null;
     protected $proxyTimeout            = "5";
     protected $refresh                 = "no";
     protected $title                   = "<h2>Performance Graph</h2>";
@@ -99,7 +100,17 @@ class Grapher extends GrapherHook
         $this->height = $this->config->get('height', $this->height);
         $this->width = $this->config->get('width', $this->width);
 
+        $this->accessModeDirect = $this->config->get('accessmodedirect', $this->accessModeDirect);
         $this->accessMode = $this->config->get('accessmode', $this->accessMode);
+
+        if (in_array($this->accessModeDirect, array('direct', 'iframe'))) {
+            if($this->permission->hasPermission('grafana/directaccess')) {
+                $this->accessMode = $this->accessModeDirect;
+                $this->grafanaHost = $this->config->get('publichost', $this->publicHost);
+                $this->protocol = $this->config->get('publicprotocol', $this->publicProtocol);
+            }
+        }
+
         $this->proxyTimeout = $this->config->get('proxytimeout', $this->proxyTimeout);
         /**
          * Read the global default timerange

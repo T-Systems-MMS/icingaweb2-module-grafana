@@ -215,6 +215,20 @@ class GeneralConfigForm extends ConfigForm
                 'required' => true
             )
         );
+        $this->addElement(
+            'select',
+            'grafana_accessmodedirect',
+            array(
+                'label' => $this->translate('Grafana direct (alternate) access mode'),
+                'multiOptions' => array(
+                    'proxy' => $this->translate('Proxy'),
+                    'indirectproxy' => $this->translate('Indirect Proxy'),
+                ),
+                'description' => $this->translate('User access Grafana directly or module proxies graphs.'),
+                'class' => 'autosubmit',
+                'required' => false
+            )
+        );
 
         if (isset($formData['grafana_accessmode']) && ($formData['grafana_accessmode'] === 'proxy' || $formData['grafana_accessmode'] === 'indirectproxy')) {
             $this->addElement(

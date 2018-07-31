@@ -7,6 +7,7 @@ $this->providePermission('grafana/graphconfig', $this->translate('Allow to confi
 $this->providePermission('grafana/debug', $this->translate('Allow to see module debug informations.'));
 $this->providePermission('grafana/showall', $this->translate('Allow access to see all graphs of a host.'));
 $this->providePermission('grafana/enablelink', $this->translate('Allow to follow links to Grafana'));
+$this->providePermission('grafana/directaccess', $this->translate('Allow to use direct access method.'));
 
 $this->provideConfigTab('config', array(
     'title' => 'Configuration',
